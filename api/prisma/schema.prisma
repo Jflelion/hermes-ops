@@ -1,0 +1,27 @@
+generator client {
+  provider     = "prisma-client"
+  output       = "../src/generated/prisma"
+  moduleFormat = "cjs"
+}
+
+datasource db {
+  provider = "postgresql"
+}
+
+enum LeadStatus {
+  NEW
+  CONTACTED
+  WON
+  LOST
+}
+
+model Lead {
+  id        Int        @id @default(autoincrement())
+  name      String
+  email     String?
+  message   String
+  status    LeadStatus @default(NEW)
+  createdAt DateTime   @default(now()) @map("created_at")
+
+  @@map("leads")
+}
